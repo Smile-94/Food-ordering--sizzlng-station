@@ -28,6 +28,11 @@ urlpatterns = [
 
 ]
 
+# tinymce packages uls 
+urlpatterns += [
+    path('tinymce/', include('tinymce.urls')),
+]
+
 # for serve static files
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

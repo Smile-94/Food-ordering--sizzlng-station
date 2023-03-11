@@ -3,4 +3,5 @@ Pillow==9.4.0
 django-environ==0.9.0
 django-widget-tweaks==1.4.12
 django-filter==22.1
+django-tinymce==3.5.0
 

@@ -10,27 +10,23 @@
     {% if updated %}
         <form method='POST'> {% csrf_token %}
             <div class="row">
-                <div class="col ">
-                    <label for="exampleInputEmail1" class="form-label">Month</label>
-                    {{form.month | add_class:"form-select"}}
+                <div class="col">
+                    <label for="exampleInputEmail1" class="form-label">Category Name</label>
+                    {{form.category_name |add_class:"form-control"}}
                 </div>
-                <div class="col mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Year</label>
-                    {{form.year | add_class:"form-select"}}
-                </div>
+                <div class="col">
+                    <label for="exampleInputEmail1" class="form-label">Category Photo</label>
+                    {{form.photo |add_class:"form-select"}}
+                </div>   
             </div>
-            <div class="row">
-                <div class="col ">
-                    <label for="exampleInputEmail1" class="form-label">From Date</label>
-                    {{form.from_date | add_class:"form-control"}}
-                </div>
-                <div class="col mb-3">
-                    <label for="exampleInputEmail1" class="form-label">To Date</label>
-                    {{form.to_date | add_class:"form-control"}}
+            <div class="row mb-4">
+                <div class="col">
+                    <label for="exampleInputEmail1" class="form-label">Sort Description</label>
+                    {{form.sort_description |add_class:"form-control"}}
                 </div>
             </div>
             <div class="mb-3">
-                <a class="btn btn-success" href="{% url 'authority:add_payrollmonth' %}" role="button"> <i class="fa-solid fa-arrow-left me-2"></i> Back</a>
+                <a class="btn btn-success" href="{% url 'authority:add_food_category' %}" role="button"> <i class="fa-solid fa-arrow-left me-2"></i> Back</a>
                 <button type="submit" class="btn btn-primary">Save</button>
                 
             </div>
@@ -72,8 +68,8 @@
                     <td>{{category.created_at}}</td>
                     <td>{{category.modified_at}}</td>
                     <td>
-                        <a class="btn btn-success" href="#" role="button"><i class="fa-solid fa-pen-to-square"></i></a>
-                        <a class="btn btn-danger" href="#" role="button"><i class="fa-solid fa-trash"></i></a>
+                        <a class="btn btn-success" href="{% url 'authority:update_food_category' category.id %}" role="button"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <a class="btn btn-danger" href="{% url 'authority:delete_food_category' category.id %}" role="button"><i class="fa-solid fa-trash"></i></a>
                     </td>
                   </tr>
                 {% endfor %}     
@@ -118,5 +114,12 @@
       </div>
     </div>
   </div>
+
+  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+  <script type="text/javascript">
+    tinymce.init({
+      selector: '#mytextarea'
+    });
+    </script>
   
 {% endblock body %}
