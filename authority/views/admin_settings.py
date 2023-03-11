@@ -46,9 +46,8 @@ class UpdateFoodCategoryView(LoginRequiredMixin, AdminPassesTestMixin, UpdateVie
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Add Food Catagories" 
+        context["title"] = "Update Food Catagories" 
         context["updated"] = True
-        context["categories"] = FoodCategories.objects.filter(is_active=True)
         return context
     
     def form_valid(self, form):

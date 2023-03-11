@@ -22,9 +22,12 @@ class SetMenuFood(models.Model):
     food_name = models.CharField(max_length=30)
     photo = models.ImageField(upload_to=food_directory_path, height_field=None, width_field=None, max_length=None)
     description = models.TextField()
-    created_at= models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
+    created_at= models.DateTimeField(auto_now_add=True, null=True)
+    modified_at = models.DateTimeField(auto_now=True, null=True)
     is_active = models.BooleanField(default= True)
+
+    def __str__(self):
+        return self.food_name
 
 class SetMenu(models.Model):
     menu_name = models.CharField(max_length=30)
@@ -51,5 +54,8 @@ class SetMenu(models.Model):
         # Calculate the new price based on the offer percentage
         self.new_price = int(self.price * (100 - self.offer_percentage) / 100)
         super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return self.menu_name
 
 

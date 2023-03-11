@@ -20,6 +20,6 @@ class AdminHomeView(LoginRequiredMixin, AdminPassesTestMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         queryset =CustomerMessage.objects.filter(is_active=True)
         context["title"] = "Admin Home"
-        context["messages"] = queryset.order_by('-id')[:5]
+        context["custormermessages"] = queryset.order_by('-id')[:5]
         return context
     

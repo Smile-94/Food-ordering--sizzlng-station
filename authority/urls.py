@@ -6,11 +6,21 @@ app_name = 'authority'
 # Views
 from authority.views import admin_main
 from authority.views import admin_settings
+from authority.views import set_menu
 
 urlpatterns = [
     path('authority/', admin_main.AdminHomeView.as_view(), name='authority')
     
 ]
+
+# manage set menu
+urlpatterns += [
+    path('add-set-menu-food/', set_menu.AddSetMenuFoodView.as_view(), name='add_set_menu_food'),
+    path('update-set-menu-food/<int:pk>/', set_menu.UpdateSetMenuFoodView.as_view(), name='update_set_menu_food'),
+    path('delete-set-menu-food/<int:pk>/', set_menu.DeleteFoodCategoryView.as_view(), name='delete_set_menu_food'),
+    
+]
+
 
 # manage admin settings
 urlpatterns += [
