@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 # Forms
 from home.forms import CustomerMessageForm
-from authority.models import FoodCategories
+from authority.models import SetMenu
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -14,8 +14,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Home" 
-        context["categories"] =FoodCategories.objects.filter(is_active=True)
-
+        context["setmenus"] = SetMenu.objects.filter(is_active=True).order_by('-id')[:8]
         return context
 
 class ContactView(TemplateView):
