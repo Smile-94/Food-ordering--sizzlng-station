@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'django_filters',
     'tinymce',
+    'multiupload',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -75,6 +76,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'home.context_processors.my_context_processor',
             ],
         },
     },

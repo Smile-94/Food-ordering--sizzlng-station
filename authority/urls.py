@@ -18,6 +18,9 @@ urlpatterns += [
     path('add-set-menu-food/', set_menu.AddSetMenuFoodView.as_view(), name='add_set_menu_food'),
     path('update-set-menu-food/<int:pk>/', set_menu.UpdateSetMenuFoodView.as_view(), name='update_set_menu_food'),
     path('delete-set-menu-food/<int:pk>/', set_menu.DeleteFoodCategoryView.as_view(), name='delete_set_menu_food'),
+    path('add-set-menu/', set_menu.AddSetMenuView.as_view(), name='add_set_menu'),
+    path('update-set-menu/<int:pk>/', set_menu.UpdateSetMenuView.as_view(), name='update_set_menu'),
+    path('delete-set-menu/<int:pk>/', set_menu.DeleteSetMenuView.as_view(), name='delete_set_menu'),
     
 ]
 

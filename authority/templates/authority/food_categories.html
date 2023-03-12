@@ -8,7 +8,7 @@
 {% block body %}
 <div class="bg-light rounded h-100 p-4">
     {% if updated %}
-        <form method='POST'> {% csrf_token %}
+        <form method='POST' enctype="multipart/form-data"> {% csrf_token %}
             <div class="row">
                 <div class="col">
                     <label for="exampleInputEmail1" class="form-label">Category Name</label>
@@ -68,6 +68,7 @@
                     <td>{{category.created_at}}</td>
                     <td>{{category.modified_at}}</td>
                     <td>
+                        <a class="btn btn-primary" href="#" role="button"><i class="fa-solid fa-eye"></i></a>
                         <a class="btn btn-success" href="{% url 'authority:update_food_category' category.id %}" role="button"><i class="fa-solid fa-pen-to-square"></i></a>
                         <a class="btn btn-danger" href="{% url 'authority:delete_food_category' category.id %}" role="button"><i class="fa-solid fa-trash"></i></a>
                     </td>
@@ -115,11 +116,4 @@
     </div>
   </div>
 
-  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-  <script type="text/javascript">
-    tinymce.init({
-      selector: '#mytextarea'
-    });
-    </script>
-  
 {% endblock body %}

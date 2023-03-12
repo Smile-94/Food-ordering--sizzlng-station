@@ -8,7 +8,7 @@
 {% block body %}
 <div class="bg-light rounded h-100 p-4">
     {% if updated %}
-        <form method='POST'> {% csrf_token %}
+        <form method='POST' enctype="multipart/form-data"> {% csrf_token %}
             <div class="row">
                 <div class="col">
                     <label for="exampleInputEmail1" class="form-label">Category Name</label>
@@ -68,6 +68,7 @@
                     <td>{{food.created_at}}</td>
                     <td>{{food.modified_at}}</td>
                     <td>
+                        <a class="btn btn-primary" href="#" role="button"><i class="fa-solid fa-eye"></i></a>
                         <a class="btn btn-success" href="{% url 'authority:update_set_menu_food' food.id %}" role="button"><i class="fa-solid fa-pen-to-square"></i></a>
                         <a class="btn btn-danger" href="{% url 'authority:delete_set_menu_food' food.id %}" role="button"><i class="fa-solid fa-trash"></i></a>
                     </td>
