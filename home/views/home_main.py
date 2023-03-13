@@ -26,6 +26,17 @@ class ContactView(TemplateView):
         context["form"] = CustomerMessageForm
         return context
 
+
+class ContactUsView(TemplateView):
+    
+    template_name = 'home/contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Contact Us"
+        return context
+    
+
     
     
 

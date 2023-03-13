@@ -4,6 +4,7 @@ from django.urls import path
 from home.views import home_main
 from home.views import customer_message
 from home.views import customer_login
+from home.views import manage_product
 
 app_name = 'home'
 
@@ -24,3 +25,9 @@ urlpatterns += [
     path('customer-login/', customer_login.CustomerUserLoginView.as_view(),name="customer_login"),
     path('customer-logout/', customer_login.CustomerUserLogout.as_view(),name="customer_logout")
 ]
+
+# Manage Product
+urlpatterns += [
+    path('set-menu-details/<int:pk>/', manage_product.SetMenuDetailsView.as_view(), name='set-menu-details')
+]
+
