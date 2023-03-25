@@ -35,7 +35,7 @@ class MenuFood(models.Model):
 class Foods(models.Model):
     menu_name = models.CharField(max_length=30)
     menu_id = models.CharField(max_length=50, blank=True, null=True)
-    foods_items = models.ManyToManyField(MenuFood, related_name='menu_food', null=True, blank=True)
+    foods_items = models.ManyToManyField(MenuFood, related_name='menu_food',blank=True)
     food_catagory = models.ForeignKey(FoodCategories, on_delete=models.CASCADE, related_name='food_category')
     menu_description = models.TextField(blank=True,null=True)
     menu_image = models.ImageField(upload_to=set_menu_directory_path, height_field=None, width_field=None, max_length=None)
