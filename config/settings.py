@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'payment.apps.PaymentConfig',
     'report.apps.ReportConfig',
     'shipping.apps.ShippingConfig',
+    'products.apps.ProductsConfig',
     # 3rd Party Apps and Packages
     'widget_tweaks',
     'django_filters',

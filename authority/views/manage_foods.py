@@ -12,24 +12,24 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from authority.permissions import AdminPassesTestMixin
 
 # Models 
-from authority.models import SetMenuFood
-from authority.models import SetMenu
+from products.models import MenuFood
+from products.models import Foods
 
 # Forms
-from authority.forms import SetMenuFoodForm
-from authority.forms import SetMenuForm
+from products.forms import MenuFoodForm
+from products.forms import FoodsForm
 
 
-class AddSetMenuFoodView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
-    model = SetMenuFood
-    form_class = SetMenuFoodForm
+class AddMenuFoodView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
+    model = MenuFood
+    form_class = MenuFoodForm
     template_name = 'authority/add_set_menu_food.html'
     success_url = reverse_lazy('authority:add_set_menu_food')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Add Food Catagories" 
-        context["foods"] = SetMenuFood.objects.filter(is_active=True)
+        context["foods"] = MenuFood.objects.filter(is_active=True)
         return context
     
     def form_valid(self, form):
@@ -41,9 +41,9 @@ class AddSetMenuFoodView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
         messages.error(self.request, "Something went worng try again!")
         return super().form_invalid(form)
     
-class UpdateSetMenuFoodView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
-    model = SetMenuFood
-    form_class = SetMenuFoodForm
+class UpdateMenuFoodView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
+    model = MenuFood
+    form_class = MenuFoodForm
     template_name = 'authority/add_set_menu_food.html'
     success_url = reverse_lazy('authority:add_set_menu_food')
 
@@ -62,8 +62,8 @@ class UpdateSetMenuFoodView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView
         messages.error(self.request, "Something went worng try again!")
         return super().form_invalid(form)
 
-class DeleteFoodCategoryView(LoginRequiredMixin, AdminPassesTestMixin, DeleteView):
-    model= SetMenuFood
+class DeleteMenuFoodView(LoginRequiredMixin, AdminPassesTestMixin, DeleteView):
+    model= MenuFood
     context_object_name = 'foods'
     template_name = "authority/delete_set_menu_food.html"
     success_url = reverse_lazy('authority:add_set_menu_food')
@@ -79,16 +79,16 @@ class DeleteFoodCategoryView(LoginRequiredMixin, AdminPassesTestMixin, DeleteVie
         return redirect(self.success_url) 
 
 
-class AddSetMenuView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
-    model = SetMenu
-    form_class = SetMenuForm
+class AddFoodsView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
+    model = Foods
+    form_class = FoodsForm
     template_name = 'authority/add_set_menu.html'
     success_url = reverse_lazy('authority:add_set_menu')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Add Set Menu" 
-        context["setmenus"] = SetMenu.objects.filter(is_active=True)
+        context["setmenus"] = Foods.objects.filter(is_active=True)
         return context
     
     def form_valid(self, form):
@@ -100,9 +100,9 @@ class AddSetMenuView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
         messages.error(self.request, "Something went worng try again!")
         return super().form_invalid(form)
 
-class UpdateSetMenuView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
-    model = SetMenu
-    form_class = SetMenuForm
+class UpdateFoodsView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
+    model = Foods
+    form_class = FoodsForm
     template_name = 'authority/add_set_menu.html'
     success_url = reverse_lazy('authority:add_set_menu')
 
@@ -122,8 +122,8 @@ class UpdateSetMenuView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
         return super().form_invalid(form)
 
 
-class DeleteSetMenuView(LoginRequiredMixin, AdminPassesTestMixin, DeleteView):
-    model= SetMenu
+class DeleteFoodsView(LoginRequiredMixin, AdminPassesTestMixin, DeleteView):
+    model= Foods
     context_object_name = 'menus'
     template_name = "authority/delete_set_menu.html"
     success_url = reverse_lazy('authority:add_set_menu')
