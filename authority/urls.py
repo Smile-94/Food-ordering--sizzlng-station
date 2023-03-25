@@ -16,12 +16,12 @@ urlpatterns = [
 
 # manage set menu
 urlpatterns += [
-    path('add-set-menu-food/', manage_foods.AddSetMenuFoodView.as_view(), name='add_set_menu_food'),
-    path('update-set-menu-food/<int:pk>/', manage_foods.UpdateSetMenuFoodView.as_view(), name='update_set_menu_food'),
-    path('delete-set-menu-food/<int:pk>/', manage_foods.DeleteFoodCategoryView.as_view(), name='delete_set_menu_food'),
-    path('add-set-menu/', manage_foods.AddSetMenuView.as_view(), name='add_set_menu'),
-    path('update-set-menu/<int:pk>/', manage_foods.UpdateSetMenuView.as_view(), name='update_set_menu'),
-    path('delete-set-menu/<int:pk>/', manage_foods.DeleteSetMenuView.as_view(), name='delete_set_menu'),
+    path('add-set-menu-food/', manage_foods.AddMenuFoodView.as_view(), name='add_set_menu_food'),
+    path('update-set-menu-food/<int:pk>/', manage_foods.UpdateMenuFoodView.as_view(), name='update_set_menu_food'),
+    path('delete-set-menu-food/<int:pk>/', manage_foods.DeleteMenuFoodView.as_view(), name='delete_set_menu_food'),
+    path('add-set-menu/', manage_foods.AddFoodsView.as_view(), name='add_set_menu'),
+    path('update-set-menu/<int:pk>/', manage_foods.UpdateFoodsView.as_view(), name='update_set_menu'),
+    path('delete-set-menu/<int:pk>/', manage_foods.DeleteFoodsView.as_view(), name='delete_set_menu'),
     
 ]
 

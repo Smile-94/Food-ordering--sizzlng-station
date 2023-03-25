@@ -1,9 +1,6 @@
 from django import forms
 
-# Models
-from authority.models import FoodCategories
-from authority.models import SetMenuFood
-from authority.models import SetMenu
+
 from authority.models import BookTable
 
 class TableBookingForm(forms.ModelForm):

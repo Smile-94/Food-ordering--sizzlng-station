@@ -9,8 +9,10 @@ from django.views.generic import CreateView
 # Forms
 from home.forms import CustomerMessageForm
 from authority.forms import TableBookingForm
-from authority.models import SetMenu
+
+#Models
 from authority.models import BookTable
+from products.models import Foods
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -19,7 +21,7 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Home" 
-        context["setmenus"] = SetMenu.objects.filter(is_active=True).order_by('-id')[:8]
+        context["setmenus"] = Foods.objects.filter(is_active=True).order_by('-id')[:8]
         return context
 
 class ContactView(TemplateView):

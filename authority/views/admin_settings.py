@@ -12,10 +12,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from authority.permissions import AdminPassesTestMixin
 
 # Models 
-from authority.models import FoodCategories
+from products.models import FoodCategories
 
 # Forms
-from authority.forms import FoodCategoriesForm
+from products.forms import FoodCategoriesForm
 
 class AddFoodCategoryView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
     model = FoodCategories
