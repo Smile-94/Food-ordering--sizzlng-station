@@ -1,11 +1,16 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.contrib import messages
 
 # Generic Classes
 from django.views.generic import TemplateView
+from django.views.generic import CreateView
 
 # Forms
 from home.forms import CustomerMessageForm
+from authority.forms import TableBookingForm
 from authority.models import SetMenu
+from authority.models import BookTable
 
 # Create your views here.
 class IndexView(TemplateView):
@@ -36,7 +41,24 @@ class ContactUsView(TemplateView):
         context["title"] = "Contact Us"
         return context
     
+class TableBookingView(CreateView):
+    model = BookTable
+    form_class = TableBookingForm
+    template_name = 'home/table_booking.html'
+    success_url = reverse_lazy('home:table_booking')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = 'Table Booking' 
+        return context
+    
+    def form_valid(self, form):
+        messages.success(self.request, "We will get back to you soon")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Some thing wrong try agian!")
+        return super().form_invalid(form)
     
     
 

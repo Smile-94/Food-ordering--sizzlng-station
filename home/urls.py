@@ -13,6 +13,7 @@ urlpatterns = [
     path('', home_main.IndexView.as_view(),name="index"),
     path('home/', home_main.IndexView.as_view(),name="home"),
     path('contact/', home_main.ContactView.as_view(),name="contact"),
+    path('table-booking/', home_main.TableBookingView.as_view(),name="table_booking"),
     
 ]
 

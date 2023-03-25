@@ -87,7 +87,9 @@
                         <div class="primary-menu">
                         <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
                             <li class="menu-item"><a href="{% url 'home:index' %}">Home</a></li>
-                            <li class="menu-item menu-item-has-children has-megamenu">
+                            <li class="menu-item"><a href="{% url 'home:index' %}">Shope</a></li>
+                            <li class="menu-item"><a href="{% url 'home:table_booking' %}">Book Table</a></li>
+                            {% comment %} <li class="menu-item menu-item-has-children has-megamenu">
                                 <a href="#" class="menu-name" data-title="Shop" >Shop</a>
                                 <div class="wrap-megamenu lg-width-900 md-width-750">
                                     <div class="mega-content">
@@ -141,8 +143,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                            <li class="menu-item menu-item-has-children has-child">
+                            </li> {% endcomment %}
+                            {% comment %} <li class="menu-item menu-item-has-children has-child">
                                 <a href="#" class="menu-name" data-title="Products">Products</a>
                                 <ul class="sub-menu">
                                     <li class="menu-item"><a href="#">Omelettes</a></li>
@@ -172,8 +174,8 @@
                                     <li class="menu-item"><a href="#">Biscuits</a></li>
                                     <li class="menu-item"><a href="#">Seasonal Fruit Plate</a></li>
                                 </ul>
-                            </li>
-                            <li class="menu-item menu-item-has-children has-megamenu">
+                            </li> {% endcomment %}
+                            {% comment %} <li class="menu-item menu-item-has-children has-megamenu">
                                 <a href="#" class="menu-name" data-title="Demo">Demo</a>
                                 <div class="wrap-megamenu lg-width-800 md-width-750">
                                     <div class="mega-content">
@@ -237,7 +239,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> {% endcomment %}
                             <li class="menu-item menu-item-has-children has-megamenu">
                                 <a href="#" class="menu-name" data-title="Blog">Blog</a>
                                 <div class="wrap-megamenu lg-width-800 md-width-750">
@@ -785,7 +787,6 @@
 
     <!-- Scroll Top Button -->
     <a class="btn-scroll-top"><i class="biolife-icon icon-left-arrow"></i></a>
-
     <script src="{% static 'assets/js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'assets/js/jquery.countdown.min.js' %}"></script>

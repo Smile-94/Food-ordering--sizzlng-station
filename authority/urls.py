@@ -5,6 +5,7 @@ app_name = 'authority'
 
 # Views
 from authority.views import admin_main
+from authority.views import manage_table
 from authority.views import admin_settings
 from authority.views import set_menu
 
@@ -22,6 +23,14 @@ urlpatterns += [
     path('update-set-menu/<int:pk>/', set_menu.UpdateSetMenuView.as_view(), name='update_set_menu'),
     path('delete-set-menu/<int:pk>/', set_menu.DeleteSetMenuView.as_view(), name='delete_set_menu'),
     
+]
+
+# Manage Table
+urlpatterns += [
+    path('table-booking-request/', manage_table.TableBookingRequestListView.as_view(), name='table_bookig_request_list'),
+    path('table-booking-details/<int:pk>/', manage_table.TableBookingDetailsView.as_view(), name='table_bookig_details'),
+    path('table-booking-confirm/<int:pk>/', manage_table.ConfirmTableBookingView.as_view(), name='table_bookig_confirm'),
+    path('table-booking-delete/<int:pk>/', manage_table.DelteBookTableView.as_view(), name='table_bookig_delete'),
 ]
 
 

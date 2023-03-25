@@ -5,6 +5,7 @@ from django.contrib import admin
 from authority.models import FoodCategories
 from authority.models import SetMenuFood
 from authority.models import SetMenu
+from authority.models import BookTable
 
 @admin.register(FoodCategories)
 class FoodCategoriesAdmin(admin.ModelAdmin):
@@ -25,3 +26,7 @@ class SetMenuAdmin(admin.ModelAdmin):
     search_fields =('menu_name',)
     list_filter = ('is_active',)
     list_per_page = 50
+
+@admin.register(BookTable)
+class BookTableAdmin(admin.ModelAdmin):
+    list_display = ('party_size','date', 'full_name','phone_number')

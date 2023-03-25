@@ -77,6 +77,13 @@
                         </div>
                     </div>
                     <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-burger me-2"></i>Table Booking</a>
+                        <div class="dropdown-menu bg-transparent border-0">
+                            <a href="{% url 'authority:table_bookig_request_list' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Booking Request</a>
+                            <a href="{% url 'authority:add_set_menu' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Booked Table</a>
+                        </div>
+                    </div>
+                    <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-gear me-2"></i></i>Settings</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{% url 'authority:add_food_category' %}" class="dropdown-item">Food Category</a>
