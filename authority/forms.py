@@ -15,12 +15,12 @@ class TableBookingForm(forms.ModelForm):
 
     class Meta:
         model = BookTable
-        exclude = ('table_no','review_message')
+        exclude = ('table_no','review_message','is_active')
 
 class TableBookingConfirmForm(forms.ModelForm):
 
     class Meta:
         model = BookTable
-        fields = ('table_no','review_message')
+        fields = ('table_no','review_message',)
        
 

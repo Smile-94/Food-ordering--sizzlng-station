@@ -28,6 +28,7 @@ urlpatterns += [
 # Manage Table
 urlpatterns += [
     path('table-booking-request/', manage_table.TableBookingRequestListView.as_view(), name='table_bookig_request_list'),
+    path('table-booked-list/', manage_table.TableBookedListView.as_view(), name='table_booked_list'),
     path('table-booking-details/<int:pk>/', manage_table.TableBookingDetailsView.as_view(), name='table_bookig_details'),
     path('table-booking-confirm/<int:pk>/', manage_table.ConfirmTableBookingView.as_view(), name='table_bookig_confirm'),
     path('table-booking-delete/<int:pk>/', manage_table.DelteBookTableView.as_view(), name='table_bookig_delete'),

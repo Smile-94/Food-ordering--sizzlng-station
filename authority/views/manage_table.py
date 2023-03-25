@@ -24,14 +24,26 @@ from authority.forms import TableBookingConfirmForm
 
 class TableBookingRequestListView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
     model = BookTable
-    queryset = BookTable.objects.filter(is_active=True).order_by('-id')
+    queryset = BookTable.objects.filter(is_active=True, confirm_status=False).order_by('-id')
     context_object_name = 'bookingrequests'
     template_name = 'authority/booking_request_list.html'
 
     def get_context_data(self, **kwargs):
+        print('Query Set: ',self.queryset)
         context = super().get_context_data(**kwargs)
         context["title"] = "Booking Request" 
-        context["form"] = TableBookingConfirmForm 
+        return context
+
+class TableBookedListView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
+    model = BookTable
+    queryset = BookTable.objects.filter(is_active=True, confirm_status=True).order_by('-id')
+    context_object_name = 'bookingrequests'
+    template_name = 'authority/booking_request_list.html'
+
+    def get_context_data(self, **kwargs):
+        print('Query Set: ',self.queryset)
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Booking Request"
         return context
 
 class TableBookingDetailsView(LoginRequiredMixin, AdminPassesTestMixin, DetailView):

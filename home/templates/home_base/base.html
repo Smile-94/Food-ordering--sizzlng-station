@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    {% comment %} <div class="container">
         {% if messages %}
             {% for message in messages %}
                 <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert" {% endif %}>
@@ -43,7 +43,7 @@
                 </div>
             {% endfor %}
         {% endif %}    
-    </div>
+    </div> {% endcomment %}
 
     <!-- HEADER -->
     <header id="header" class="header-area style-01 layout-03">

@@ -70,17 +70,17 @@
                 <div class="navbar-nav w-100">
                     <a href="{% url 'authority:authority' %}" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                     <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-burger me-2"></i>Set Menu</a>
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-burger me-2"></i>Foods</a>
                         <div class="dropdown-menu bg-transparent border-0">
-                            <a href="{% url 'authority:add_set_menu_food' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Set Menu Food</a>
-                            <a href="{% url 'authority:add_set_menu' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Add Set-Menu</a>
+                            <a href="{% url 'authority:add_set_menu_food' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Foods Menu</a>
+                            <a href="{% url 'authority:add_set_menu' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Foods</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-burger me-2"></i>Table Booking</a>
                         <div class="dropdown-menu bg-transparent border-0">
                             <a href="{% url 'authority:table_bookig_request_list' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Booking Request</a>
-                            <a href="{% url 'authority:add_set_menu' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Booked Table</a>
+                            <a href="{% url 'authority:table_booked_list' %}" class="dropdown-item"><i class="fa-solid fa-burger me-2"></i>Booked Table</a>
                         </div>
                     </div>
                     <div class="nav-item dropdown">
