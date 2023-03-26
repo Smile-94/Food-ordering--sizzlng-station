@@ -4,6 +4,7 @@ from django.contrib import admin
 from products.models import FoodCategories
 from products.models import MenuFood
 from products.models import Foods
+from products.models import Cart
 
 
 
@@ -26,3 +27,5 @@ class SetMenuAdmin(admin.ModelAdmin):
     search_fields =('menu_name',)
     list_filter = ('is_active',)
     list_per_page = 50
+
+admin.site.register(Cart)

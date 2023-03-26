@@ -5,6 +5,7 @@ from home.views import home_main
 from home.views import customer_message
 from home.views import customer_login
 from home.views import manage_product
+from home.views import manage_order
 
 app_name = 'home'
 
@@ -31,4 +32,10 @@ urlpatterns += [
 urlpatterns += [
     path('set-menu-details/<int:pk>/', manage_product.SetMenuDetailsView.as_view(), name='set-menu-details')
 ]
+
+# manage order
+urlpatterns += [
+    path('add-to-cart/<int:pk>/',manage_order.AddToCartView.as_view(), name='add_to_cart'),
+]
+
 

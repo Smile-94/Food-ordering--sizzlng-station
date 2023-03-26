@@ -1,6 +1,9 @@
 from django.db import models
 import datetime
 
+# Models
+from accounts.models import User
+
 
 # Create your models here.
 from products.utils import category_directory_path
@@ -56,3 +59,29 @@ class Foods(models.Model):
        
     def __str__(self):
         return self.menu_name
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='cart_user')
+    items = models.ForeignKey(Foods, on_delete=models.CASCADE, related_name='cart_items')
+    quentity = models.IntegerField(default=1)
+    purchased = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.quentity} X {self.items}"
+    
+    def get_totla(self):
+        total = self.items.new_price*self.quentity
+        float_totla = format(total, '0.2f')
+        return float_totla
+
+class Order(models.Model):
+    orderitems = models.ManyToManyField(Cart)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    ordered = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    payment_id = models.CharField(max_length=250, blank=True, null=True)
+    order_id = models.CharField(max_length=250, blank=True, null=True)
+
