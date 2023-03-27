@@ -36,11 +36,15 @@
                         <form action="#" name="frm-login" method="POST">{% csrf_token %}
                             <p class="form-row">
                                 <label for="fid-name">Email Address:<span class="requite">*</span></label>
-                                {{form.username | add_class:"txt-input" |append_attr:"id:fid-pass"}}
+                                {{form.email | add_class:"txt-input" |append_attr:"id:fid-pass"}}
                             </p>
                             <p class="form-row">
                                 <label for="fid-pass">Password:<span class="requite">*</span></label>
-                                {{form.password | add_class:"txt-input"  |append_attr:"id:fid-pass"}}
+                                {{form.password1 | add_class:"txt-input"  |append_attr:"id:fid-pass"}}
+                            </p>
+                            <p class="form-row">
+                                <label for="fid-pass">Password:<span class="requite">*</span></label>
+                                {{form.password2 | add_class:"txt-input"  |append_attr:"id:fid-pass"}}
                             </p>
                             <p class="form-row wrap-btn">
                                 <button class="btn btn-submit btn-bold" type="submit">sign in</button>
@@ -63,7 +67,7 @@
                                 <li>Track new orders</li>
                                 <li>Save items to your Wishlist</li>
                             </ul>
-                            <a href="{% url 'home:customer_signup' %}" class="btn btn-bold">Create an account</a>
+                            <a href="{% url 'home:customer_login' %}" class="btn btn-bold">Have Account? Login</a>
                         </div>
                     </div>
                 </div>

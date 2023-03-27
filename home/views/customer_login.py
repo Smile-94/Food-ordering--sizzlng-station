@@ -31,10 +31,10 @@ from accounts.forms import SignUpForm
 
 
 # Create your views here.
-class SignupView(CreateView):
+class CustomerSignupView(CreateView):
     form_class = SignUpForm
-    success_url = reverse_lazy('accounts:login')
-    template_name = 'accounts/signup.html'
+    success_url = reverse_lazy('home:customer_login')
+    template_name = 'home/customer_sign_up.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -46,7 +46,6 @@ class SignupView(CreateView):
             form_obj=form.save()
             form_obj.is_customer = True
             form_obj.save()
-            messages.success(self.request, "Welcome to Sizzling Station")
             return super().form_valid(form)
         
         except Exception as e:

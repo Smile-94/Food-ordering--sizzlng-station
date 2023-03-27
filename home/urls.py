@@ -25,6 +25,7 @@ urlpatterns += [
 # Manage customer login logout
 urlpatterns += [
     path('customer-login/', customer_login.CustomerUserLoginView.as_view(),name="customer_login"),
+    path('customer-signup/', customer_login.CustomerSignupView.as_view(),name="customer_signup"),
     path('customer-logout/', customer_login.CustomerUserLogout.as_view(),name="customer_logout")
 ]
 
