@@ -72,10 +72,10 @@ class Cart(models.Model):
     def __str__(self):
         return f"{self.quentity} X {self.items}"
     
-    def get_totla(self):
-        total = self.items.new_price*self.quentity
-        float_totla = format(total, '0.2f')
-        return float_totla
+    def get_total(self):
+        total = float(self.items.new_price) * self.quentity
+        print(total)
+        return "{:.2f}".format(total)
 
 class Order(models.Model):
     orderitems = models.ManyToManyField(Cart)
@@ -84,4 +84,13 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     payment_id = models.CharField(max_length=250, blank=True, null=True)
     order_id = models.CharField(max_length=250, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user}'s orders  "
+
+    def get_totla(self):
+        total = 0
+        for order_item  in self.orderitems.all():
+            total += float(order_item.get_total())
+        return total
 

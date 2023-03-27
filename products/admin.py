@@ -5,6 +5,7 @@ from products.models import FoodCategories
 from products.models import MenuFood
 from products.models import Foods
 from products.models import Cart
+from products.models import Order
 
 
 
@@ -29,3 +30,4 @@ class SetMenuAdmin(admin.ModelAdmin):
     list_per_page = 50
 
 admin.site.register(Cart)
+admin.site.register(Order)
