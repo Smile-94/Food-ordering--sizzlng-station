@@ -81,7 +81,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-md-2 col-md-6 col-xs-6">
-                        <a href="index-2.html" class="biolife-logo"><img src="{% static 'assets/images/organic-3.png' %}" alt="biolife logo" width="135" height="34"></a>
+                        {% comment %} <a href="index-2.html" class="biolife-logo"><img src="{% static 'assets/images/logo7.png' %}" alt="biolife logo" width="135" height="34"></a> {% endcomment %}
+                        <a href="{% url 'home:index' %}" class="biolife-logo"><h1>SIZZLING</h1></a>
                     </div>
                     <div class="col-lg-6 col-md-7 hidden-sm hidden-xs">
                         <div class="primary-menu">
@@ -291,7 +292,8 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-sm-9">
                         <section class="footer-item">
-                            <a href="index-2.html" class="logo footer-logo"><img src="{% static 'assets/images/organic-3.png' %}" alt="biolife logo" width="135" height="34"></a>
+                            {% comment %} <a href="index-2.html" class="logo footer-logo"><img src="{% static 'assets/images/organic-3.png' %}" alt="biolife logo" width="135" height="34"></a> {% endcomment %}
+                            <a href="index-2.html" class="logo footer-logo"><h3>SIZZLING STATION</h3></a>
                             <div class="footer-phone-info">
                                 <i class="biolife-icon icon-head-phone"></i>
                                 <p class="r-info">
