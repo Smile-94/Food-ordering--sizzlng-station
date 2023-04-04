@@ -38,6 +38,9 @@ urlpatterns += [
 urlpatterns += [
     path('add-to-cart/<int:pk>/', manage_order.add_to_cart, name='add_to_cart'),
     path('cart-details/', manage_order.ChartProductListView.as_view(), name='cart_details'),
+    path('remove-from_cart/<int:pk>/', manage_order.remove_form_cart, name='remove_form_cart'),
+    path('increase-from-cart/<int:pk>/', manage_order.increase_cart_item, name='increase_cart'),
+    path('decrease-from-cart/<int:pk>/', manage_order.decrease_cart_item, name='decrease_cart'),
 ]
 
 
