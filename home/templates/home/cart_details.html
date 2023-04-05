@@ -61,6 +61,7 @@
                                             <td class="product-subtotal" data-title="Total">
                                                 <div class="price price-contain">
                                                     <ins><span class="price-amount"><span class="currencySymbol">TK</span>{{item.get_total}}</span></ins>
+                                                    <del><span class="price-amount"><span class="currencySymbol">Tk</span> {{item.get_total_old}} </span></del>
                                                     
                                                 </div>
                                             </td>
@@ -91,7 +92,7 @@
                                 <p class="desc">Based on 56789</p>
                             </div>
                             <div class="btn-checkout">
-                                <a href="#" class="btn checkout">Check out</a>
+                                <a href="{% url 'payment:checkout' %}" class="btn checkout">Check out</a>
                             </div>
                             <p class="pickup-info"><b>Free Pickup</b> is available as soon as today More about shipping and pickup</p>
                         </div>

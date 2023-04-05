@@ -76,6 +76,11 @@ class Cart(models.Model):
         total = float(self.items.new_price) * self.quentity
         print(total)
         return "{:.2f}".format(total)
+    
+    def get_total_old(self):
+        total = float(self.items.price) * self.quentity
+        print(total)
+        return "{:.2f}".format(total)
 
 class Order(models.Model):
     orderitems = models.ManyToManyField(Cart)
@@ -88,7 +93,7 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.user}'s orders  "
 
-    def get_totla(self):
+    def get_totals(self):
         total = 0
         for order_item  in self.orderitems.all():
             total += float(order_item.get_total())

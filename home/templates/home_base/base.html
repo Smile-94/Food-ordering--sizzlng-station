@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load widget_tweaks %}
 <html class="no-js" lang="en">
 
 <head>
@@ -217,7 +218,7 @@
                                                                     <a href="{% url 'home:set-menu-details' item.items.id %}"><img src=" {{item.items.menu_image.url}} " width="90" height="90" alt="National Fresh"></a>
                                                                 </div>
                                                                 <div class="left-info">
-                                                                    <div class="product-title"><a href="#" class="product-name"> {{item.items.menu_name}} </a></div>
+                                                                    <div class="product-title"><a href="{% url 'home:set-menu-details' item.items.id %}" class="product-name"> {{item.items.menu_name}} </a></div>
                                                                     <div class="price">
                                                                         <ins><span class="price-amount"><span class="currencySymbol">TK</span>{{item.items.new_price}}</span></ins>
                                                                         <del><span class="price-amount"><span class="currencySymbol">TK</span>{{item.items.price}}</span></del>
@@ -227,8 +228,8 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="action">
-                                                                    <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                                    <a href="#" class="remove"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                                                                    <a class="btn" href="{% url 'home:remove_form_cart' item.items.id %}" role="button"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                                    <a class="btn" href="{% url 'home:remove_form_cart' item.items.id %}" role="button"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                                                                 </div>
                                                             </div>
                                                         </li> 
@@ -236,7 +237,7 @@
                                                 </ul>
                                                 <p class="btn-control">
                                                     <a href="{% url 'home:cart_details' %}" class="btn view-cart">view cart</a>
-                                                    <a href="#" class="btn">checkout</a>
+                                                    <a href="{% url 'payment:checkout' %}" class="btn">checkout</a>
                                                 </p>
                                             </div>
                                         </div>
