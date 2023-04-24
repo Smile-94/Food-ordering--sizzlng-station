@@ -61,6 +61,17 @@ class TableBookingView(CreateView):
     def form_invalid(self, form):
         messages.error(self.request, "Some thing wrong try agian!")
         return super().form_invalid(form)
+
+class ShopeView(TemplateView):
+    template_name = 'home/shope.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Shope Page"
+        context["recent_product"] = Foods.objects.filter(is_active=True).order_by('-id')[:8]
+        context["all_foods"] = Foods.objects.filter(is_active=True).order_by('-id')
+        return context
+    
     
     
 

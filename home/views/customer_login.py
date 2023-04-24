@@ -21,13 +21,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.views.generic import CreateView
+from django.views.generic import UpdateView
 
 # Models
 from accounts.models import User
+from accounts.models import Profile
 
 # forms
 from django.contrib.auth.forms import AuthenticationForm
 from accounts.forms import SignUpForm
+from accounts.forms import ProfileForm
 
 
 # Create your views here.
@@ -57,10 +60,18 @@ class CustomerSignupView(CreateView):
         if User.objects.filter(email=email).exists():
             messages.error(self.request, "Thsi email already exist try another or login")
         return super().form_invalid(form)
-        
+
+class AddProfileInfo(LoginRequiredMixin, UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    template_name = 'home/edit_profile.html'
+    success_url = reverse_lazy('home:index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = 'Add/Edit Profile'
+        return context
     
-
-
 class CustomerUserLoginView(LoginView):
     form_class = AuthenticationForm
     success_url = reverse_lazy('home:home')

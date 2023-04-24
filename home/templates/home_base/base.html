@@ -67,14 +67,16 @@
                         <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
                     </ul>
                     <ul class="horizontal-menu">
-                        <li class="horz-menu-item lang">
-                            <select name="language">
-                                <option value="en" selected>English (USD)</option>
-                            </select>
-                        </li>
-
+                    
                         {% if user.is_authenticated %}
+                            <li class="horz-menu-item lang">
+                                <a href="{% url 'home:edit_profile' request.user.id %}"><h4 value="en" selected>Profile</h4> </a>
+                            </li>
+                            <li class="horz-menu-item lang">
+                                <a href="http://"><h4 value="en" selected>My Order</h4> </a>
+                            </li>
                             <li><a href="{% url 'home:customer_logout' %}" class="login-link"><i class="biolife-icon icon-login"></i>Logout</a></li>
+                            
                         {% else %}
                             <li><a href="{% url 'home:customer_login' %}" class="login-link"><i class="biolife-icon icon-login"></i>Login/Register</a></li>
                         {% endif %}
@@ -93,10 +95,10 @@
                         <div class="primary-menu">
                         <ul class="menu biolife-menu clone-main-menu clone-primary-menu" id="primary-menu" data-menuname="main menu">
                             <li class="menu-item"><a href="{% url 'home:index' %}">Home</a></li>
-                            <li class="menu-item"><a href="{% url 'home:index' %}">Shope</a></li>
+                            <li class="menu-item"><a href="{% url 'home:shope' %}">Shope</a></li>
                             <li class="menu-item"><a href="{% url 'home:table_booking' %}">Book Table</a></li>
                             <li class="menu-item menu-item-has-children has-megamenu">
-                                <a href="#" class="menu-name" data-title="Blog">Blog</a>
+                                {% comment %} <a href="#" class="menu-name" data-title="Blog">Blog</a> {% endcomment %}
                                 <div class="wrap-megamenu lg-width-800 md-width-750">
                                     <div class="mega-content">
                                         <div class="col-lg-3 col-md-3 col-xs-6">

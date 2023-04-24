@@ -15,6 +15,7 @@ urlpatterns = [
     path('home/', home_main.IndexView.as_view(),name="home"),
     path('contact/', home_main.ContactView.as_view(),name="contact"),
     path('table-booking/', home_main.TableBookingView.as_view(),name="table_booking"),
+    path('shope/', home_main.ShopeView.as_view(),name="shope"),
     
 ]
 
@@ -26,7 +27,8 @@ urlpatterns += [
 urlpatterns += [
     path('customer-login/', customer_login.CustomerUserLoginView.as_view(),name="customer_login"),
     path('customer-signup/', customer_login.CustomerSignupView.as_view(),name="customer_signup"),
-    path('customer-logout/', customer_login.CustomerUserLogout.as_view(),name="customer_logout")
+    path('customer-logout/', customer_login.CustomerUserLogout.as_view(),name="customer_logout"),
+    path('edit-profile/<int:pk>/', customer_login.AddProfileInfo.as_view(),name="edit_profile")
 ]
 
 # Manage Product

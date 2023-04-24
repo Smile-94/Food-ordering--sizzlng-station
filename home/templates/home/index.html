@@ -435,8 +435,8 @@
                             <span class="second-line">Easy <i>Healthy, Happy Life</i></span>
                             <p class="third-line">Sizzling Station Made Easy sounds like the name of an amazingly delicious food delivery service, but don't be fooled. The blog is actually a compilation of recipes, and nutrition tips.</p>
                             <p class="buttons">
-                                <a href="#" class="btn btn-bold">Read More</a>
-                                <a href="#" class="btn btn-thin">View Menu Now</a>
+                                <a href="{% url 'home:shope' %}" class="btn btn-bold">Read More</a>
+                                <a href="{% url 'home:shope' %}" class="btn btn-thin">View Menu Now</a>
                             </p>
                         </div>
                     </div>
@@ -469,7 +469,7 @@
                                                     <h4 class="product-title"><a href="{% url 'home:set-menu-details' menu.id %}" class="pr-name"> {{menu.menu_name}} </a></h4>
                                                     <div class="price ">
                                                         <ins><span class="price-amount"><span class="currencySymbol">TK</span> {{menu.new_price}} </span></ins>
-                                                        <del><span class="price-amount"><span class="currencySymbol">£</span> {{menu.price}} </span></del>
+                                                        <del><span class="price-amount"><span class="currencySymbol">TK</span> {{menu.price}} </span></del>
                                                     </div>
                                                     <div class="rating">
                                                         <p class="star-rating"><span class="width-80percent"></span></p>
@@ -500,7 +500,7 @@
         </div>
 
         <!--Block 08: Blog Posts-->
-        <div class="blog-posts sm-margin-top-93px sm-padding-top-72px xs-padding-bottom-50px">
+        {% comment %} <div class="blog-posts sm-margin-top-93px sm-padding-top-72px xs-padding-bottom-50px">
             <div class="container">
                 <div class="biolife-title-box">
                     <span class="subtitle">The freshest and most exciting news</span>
@@ -719,7 +719,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+        </div> {% endcomment %}
 
     </div>
 

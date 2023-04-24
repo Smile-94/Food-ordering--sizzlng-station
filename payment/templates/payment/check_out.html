@@ -126,6 +126,14 @@
                                     </div>
                                 </li>
                             </ul>
+                            
+                            {% if saved_address.is_fully_filled %}
+                                <a class="btn btn-danger" href="{% url 'payment:payment' %}" role="button">Checkout</a>
+                            {% else %}
+                                <b class="stt-name">Please fillup the billing address</b>
+                            {% endif %}
+
+                                
                         </div>
                     </div>
                 </div>

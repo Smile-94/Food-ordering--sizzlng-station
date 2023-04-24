@@ -1,0 +1,103 @@
+{% extends 'home_base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block body %}
+<!--Hero Section-->
+
+<div class="page-contain contact-us">
+
+    <!-- Main content -->
+    <div id="main-content" class="main-content">
+    <div class="container">
+
+            <div class="row">
+
+                <!--Contact info-->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="contact-info-container sm-margin-top-27px xs-margin-bottom-60px xs-margin-top-60px">
+                        <h4 class="box-title">Add/Edit Profile Info</h4>
+                        <p class="frst-desc">If you know you'll be dining out on a specific date, try to book your table as early as possible to ensure availability. Some restaurants may be fully booked during peak times or for special events, so it's best to plan ahead.</p>
+                        <ul class="addr-info">
+                            <li>
+                                <div class="if-item">
+                                    <b class="tie">Addess:</b>
+                                    <p class="dsc">House-13, Road-12, Sector-10, Uttara, Dhaka-1230</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="if-item">
+                                    <b class="tie">Phone:</b>
+                                    <p class="dsc">(+88) 01760114620</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="if-item">
+                                    <b class="tie">Email:</b>
+                                    <p class="dsc">sasomona8@gmail.com</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="if-item">
+                                    <b class="tie">Store Open:</b>
+                                    <p class="dsc">8am - 08pm, Mon - Sat</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="biolife-social inline">
+                            <ul class="socials">
+                                <li><a href="#" title="twitter" class="socail-btn"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                <li><a href="#" title="facebook" class="socail-btn"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                <li><a href="#" title="pinterest" class="socail-btn"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                <li><a href="#" title="youtube" class="socail-btn"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+                                <li><a href="#" title="instagram" class="socail-btn"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Contact form-->
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                   
+                    <div class="contact-form-container sm-margin-top-112px">
+                        <h1 class="box-title">Add/Update Profile</h1>
+                        {% if messages %}
+                                {% for message in messages %}
+                                    <h4>{{ message }}</h4>
+                                {% endfor %}
+                        {% endif %}
+                        <form method="POST">{% csrf_token %}
+                            <p class="form-row">
+                               {{form.first_name | add_class:"form-control"}}
+                            </p>
+                            <p class="form-row">
+                               {{form.last_name | add_class:"form-control"}}
+                            </p>
+                            <p class="form-row">
+                               {{form.address_1 |add_class:"form-control"}}
+                            </p>
+                            <p class="form-row">
+                                {{form.address_2 |add_class:"form-control"}}
+                            </p>
+                            <p class="form-row">
+                                {{form.phone_number |add_class:"form-control"}}
+                            </p>
+                            <p class="form-row">
+                                {{form.photo |add_class:"form-control"}}
+                            </p>
+                            <p class="form-row">
+                                <button class="btn btn-submit" type="submit">Submit</button>
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

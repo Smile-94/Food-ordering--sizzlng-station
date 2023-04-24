@@ -15,12 +15,12 @@ class BillingAddress(models.Model):
         return str(self.user)
     
 
-    def if_fully_filled(self):
-        field_names = [f.name for f in self._meta.get_field()]
+    def is_fully_filled(self):
+        field_names = [f.name for f in self._meta.get_fields()]
 
         for field_name in field_names:
             value = getattr(self, field_name)
-            if value in None or value == '':
+            if value is None or value == '':
                 return False
         return True
     

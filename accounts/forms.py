@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserCreationForm
 # models
 from accounts.models import User
 from accounts.models import Profile
-from accounts.models import Address
 
 # Widgets
 from accounts.widgets import CustomPictureImageFieldWidget
@@ -25,9 +24,3 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         exclude = ('user',)
 
-
-class AddressForm(forms.ModelForm):
-
-    class Meta:
-        model = Address
-        exclude = ('address_of',)
