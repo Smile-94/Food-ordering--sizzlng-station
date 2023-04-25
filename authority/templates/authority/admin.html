@@ -109,7 +109,7 @@
                                     Cash On
                                 {% endif %}
                             </td>
-                            <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                            <td><a class="btn btn-sm btn-primary" href="{% url 'authority:order_details' order.id %}">Detail</a></td>
                         </tr>
                         {% endfor %}
                 </tbody>

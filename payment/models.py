@@ -4,7 +4,7 @@ from accounts.models import User
 # Create your models here.
 
 class BillingAddress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='shipping_address')
     address = models.CharField( max_length=250, blank=True)
     zip_code = models.CharField(max_length=10, blank=True)
     city  = models.CharField(max_length=30, blank=True)

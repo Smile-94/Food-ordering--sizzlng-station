@@ -8,6 +8,7 @@ from authority.views import admin_main
 from authority.views import manage_table
 from authority.views import admin_settings
 from authority.views import manage_foods
+from authority.views import manage_order
 
 urlpatterns = [
     path('authority/', admin_main.AdminHomeView.as_view(), name='authority')
@@ -43,3 +44,9 @@ urlpatterns += [
     path('add-shipping-charge/', admin_settings.AddShippingChargeView.as_view(), name='add_shipping_charge'),
     path('update-shipping-charge/<int:pk>/', admin_settings.UpdateShippingChargeView.as_view(), name='update_shipping_charge'),
 ]
+
+# Manage Order
+urlpatterns += [
+    path('order-details/<int:pk>/',  manage_order.OrderDetailsView.as_view(), name='order_details'),
+]
+
