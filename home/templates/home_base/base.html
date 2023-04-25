@@ -25,6 +25,7 @@
     <!-- font-aswome cdn -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://kit.fontawesome.com/ddee993d4e.js" crossorigin="anonymous"></script>
+    
 
 </head>
 <body class="biolife-body">
@@ -73,7 +74,7 @@
                                 <a href="{% url 'home:edit_profile' request.user.id %}"><h4 value="en" selected>Profile</h4> </a>
                             </li>
                             <li class="horz-menu-item lang">
-                                <a href="http://"><h4 value="en" selected>My Order</h4> </a>
+                                <a href="{% url 'home:my_order' %}"><h4 value="en" selected>My Order</h4> </a>
                             </li>
                             <li><a href="{% url 'home:customer_logout' %}" class="login-link"><i class="biolife-icon icon-login"></i>Logout</a></li>
                             

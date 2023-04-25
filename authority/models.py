@@ -15,3 +15,8 @@ class BookTable(models.Model):
     confirm_status = models.BooleanField(default= False)
     is_active = models.BooleanField(default=True)
 
+
+class ShippingCharge(models.Model):
+    shipping_charge = models.IntegerField()
+    created_at = models.DateField(auto_now_add=True)
+    modified_at = models.DateField(auto_now_add=True)

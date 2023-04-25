@@ -105,30 +105,30 @@
                                 <li>
                                     <div class="subtotal-line">
                                         <b class="stt-name">Shipping</b>
-                                        <span class="stt-price">£20.00</span>
+                                        <span class="stt-price"> TK {{shipping_charge}} </span>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="subtotal-line">
+                                    {% comment %} <div class="subtotal-line">
                                         <b class="stt-name">Tax</b>
                                         <span class="stt-price">£0.00</span>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </li>
                                 <li>
-                                    <div class="subtotal-line">
+                                    {% comment %} <div class="subtotal-line">
                                         <a href="#" class="link-forward">Promo/Gift Certificate</a>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </li>
                                 <li>
                                     <div class="subtotal-line">
                                         <b class="stt-name">total:</b>
-                                        <span class="stt-price">£190.00</span>
+                                        <span class="stt-price"> TK {{total_pay}} </span>
                                     </div>
                                 </li>
                             </ul>
                             
                             {% if saved_address.is_fully_filled %}
-                                <a class="btn btn-danger" href="{% url 'payment:payment' %}" role="button">Checkout</a>
+                                <a class="btn btn-danger" href="{% url 'payment:payment' %}" role="button">Make Payment</a>
                             {% else %}
                                 <b class="stt-name">Please fillup the billing address</b>
                             {% endif %}

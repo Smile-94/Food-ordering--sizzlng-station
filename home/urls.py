@@ -29,6 +29,7 @@ urlpatterns += [
     path('customer-signup/', customer_login.CustomerSignupView.as_view(),name="customer_signup"),
     path('customer-logout/', customer_login.CustomerUserLogout.as_view(),name="customer_logout"),
     path('edit-profile/<int:pk>/', customer_login.AddProfileInfo.as_view(),name="edit_profile")
+    
 ]
 
 # Manage Product
@@ -43,6 +44,7 @@ urlpatterns += [
     path('remove-from_cart/<int:pk>/', manage_order.remove_form_cart, name='remove_form_cart'),
     path('increase-from-cart/<int:pk>/', manage_order.increase_cart_item, name='increase_cart'),
     path('decrease-from-cart/<int:pk>/', manage_order.decrease_cart_item, name='decrease_cart'),
+    path('my-order/', manage_order.MyOrderListView.as_view(),name="my_order"),
 ]
 
 

@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from django.utils import timezone
 
 # Models
 from accounts.models import User
@@ -84,12 +85,29 @@ class Cart(models.Model):
 
 class Order(models.Model):
     orderitems = models.ManyToManyField(Cart)
+    ordered_id = models.CharField(max_length=50, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ordered = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     payment_id = models.CharField(max_length=250, blank=True, null=True)
     order_id = models.CharField(max_length=250, blank=True, null=True)
     payment_status = models.BooleanField(default=False)
+    order_confirm = models.BooleanField(default=False)
+    ordered_at = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
+    confirmed_at =  models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.ordered_id:
+            year = str(datetime.date.today().year)[2:4]
+            month = str(datetime.date.today().month)
+            day = str(datetime.date.today().day)
+            self.ordered_id = 'SD'+year+month+day+str(self.pk).zfill(4)
+        if self.ordered and not self.ordered_at:
+            self.ordered_at = timezone.now()
+        
+        if self.order_confirm and not self.confirmed_at:
+            self.confirmed_at = timezone.now()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.user}'s orders  "

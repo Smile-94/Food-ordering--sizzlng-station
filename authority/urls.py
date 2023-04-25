@@ -40,4 +40,6 @@ urlpatterns += [
     path('add-food-category/', admin_settings.AddFoodCategoryView.as_view(), name='add_food_category'),
     path('update-food-category/<int:pk>/', admin_settings.UpdateFoodCategoryView.as_view(), name='update_food_category'),
     path('delete-food-category/<int:pk>/', admin_settings.DeleteFoodCategoryView.as_view(), name='delete_food_category'),
+    path('add-shipping-charge/', admin_settings.AddShippingChargeView.as_view(), name='add_shipping_charge'),
+    path('update-shipping-charge/<int:pk>/', admin_settings.UpdateShippingChargeView.as_view(), name='update_shipping_charge'),
 ]

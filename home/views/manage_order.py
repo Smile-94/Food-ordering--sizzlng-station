@@ -8,14 +8,17 @@ from django.db.models import F, Sum
 
 # Generic Classes
 from django.views.generic import TemplateView
+from django.views.generic import ListView
 
 # Permission 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Models
 from products.models import Cart
 from products.models import Order
 from products.models import Foods
 from accounts.models import User
+from authority.models import ShippingCharge
 
 
 @login_required
@@ -112,3 +115,19 @@ def decrease_cart_item(request, pk):
             return redirect('home:index')
     else:
         return redirect('home:index')
+
+class MyOrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    context_object_name = 'orders'
+    template_name = 'home/my_order.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(user=self.request.user, ordered=True).order_by('id')[:10]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "My order"
+        context["shipping_charge"] = ShippingCharge.objects.latest('id')
+        return context
+    

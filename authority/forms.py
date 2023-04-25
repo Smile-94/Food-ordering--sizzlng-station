@@ -2,6 +2,7 @@ from django import forms
 
 
 from authority.models import BookTable
+from authority.models import ShippingCharge
 
 class TableBookingForm(forms.ModelForm):
     occasion = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Occasion Name (i,e Birth Day, Dinner)'}))
@@ -18,9 +19,16 @@ class TableBookingForm(forms.ModelForm):
         exclude = ('table_no','review_message','is_active')
 
 class TableBookingConfirmForm(forms.ModelForm):
+    
 
     class Meta:
         model = BookTable
         fields = ('table_no','review_message',)
+
+class ShippingChargeForm(forms.ModelForm):
+
+    class Meta:
+        model = ShippingCharge
+        fields = ('shipping_charge',)
        
 

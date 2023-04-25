@@ -1,0 +1,83 @@
+{% extends 'home_base/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block body %}
+<!--Hero Section-->
+
+<div class="page-contain contact-us">
+
+    <!-- Main content -->
+    <div id="main-content" class="main-content">
+    <div class="container">
+
+            <div class="row">
+
+               
+                <!--Contact form-->
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                   
+                    <div class="contact-form-container sm-margin-top-112px">
+                        <h1 class="box-title">My Order</h1>
+                        <table class="table">
+                            <thead class="bg-primary">
+                              <tr>
+                                <th scope="col">Sl</th>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Payment Status</th>
+                                <th scope="col">Transaction ID</th>
+                                <th scope="col">Total Amount</th>
+                                <th scope="col">Shipping Charge</th>
+                                <th scope="col">Ordered Time</th>
+                                <th scope="col">Confirmed Time</th>
+                                <th scope="col">Order Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                
+                                {% for order in orders %}
+                                <tr>
+                                    <th scope="row"> {{forloop.counter}} </th>
+                                    <td> {{order.ordered_id}} </td>
+                                    <td>
+                                        
+                                        {% if order.payment_status %}
+                                            paid
+                                        {% else %}
+                                            Cash on Develvery
+                                        {% endif %}   
+                                    </td>
+                                    <td>
+                                        {% if order.payment_status %}
+                                            {{order.payment_id}}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}  
+                                    </td>
+                                    <td> {{order.get_totals}} </td>
+                                    <td> {{shipping_charge.shipping_charge}} Tk</td>
+                                    <td> {{order.ordered_at}} </td>
+                                    <td> {{order.confirmed_at}} </td>
+                                    <td> 
+                                        {% if order_confirm %}
+                                            Confirmed
+                                        {% else %}
+                                            Processing
+                                        {% endif %}
+                                    </td>
+                                </tr>  
+                                {% endfor %}
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

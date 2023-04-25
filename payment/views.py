@@ -16,6 +16,7 @@ from decimal import Decimal
 from payment.models import BillingAddress
 from products.models import Order
 from products.models import Cart
+from authority.models import ShippingCharge
 
 # Forms
 from payment.forms import BillingAddressForm
@@ -24,6 +25,7 @@ from payment.forms import BillingAddressForm
 @login_required
 def check_out(request):
     saved_address = BillingAddress.objects.get_or_create(user = request.user)[0]
+    shipping_charges = ShippingCharge.objects.latest("id")
     form = BillingAddressForm(instance=saved_address)
     if request.method == 'POST':
         form = BillingAddressForm(request.POST, instance=saved_address)
@@ -36,10 +38,12 @@ def check_out(request):
     order_items = order_qs[0].orderitems.all()
     total_item = order_qs[0].orderitems.all().count()
     order_total = order_qs[0].get_totals()
+    shipping_charge=shipping_charges.shipping_charge
+    total_pay = shipping_charge+order_total
            
 
 
-    return render(request, 'payment/check_out.html', context={'form':form, 'order_items':order_items,'order_total':order_total, 'total_item':total_item, 'saved_address': saved_address})
+    return render(request, 'payment/check_out.html', context={'form':form, 'order_items':order_items,'order_total':order_total, 'total_item':total_item, 'saved_address': saved_address,'total_pay':total_pay,'shipping_charge':shipping_charge})
 
 
 @login_required
@@ -51,17 +55,18 @@ def payment(request):
         messages.info(request, "Please complete your shipping address")
         return redirect('payment:checkout')
 
-    # if not request.user.profile.is_fully_filled():
-    #     messages.info(request, "please comple your profile information")
-    #     return redirect('customer:profile')
+    if not request.user.profile.is_fully_filled():
+        messages.info(request, "Please complete your profile information.")
+        return redirect('home:edit_profile', request.user.id)
+
 
     status_url = request.build_absolute_uri(reverse('payment:payment_success'))
     print(status_url)
-
+    shipping_charge = ShippingCharge.objects.latest('id')
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     order_items = order_qs[0].orderitems.all()
     order_items_count = order_qs[0].orderitems.count()
-    order_total = order_qs[0].get_totals()
+    order_total = order_qs[0].get_totals()+shipping_charge.shipping_charge
 
     current_user = request.user
     full_name = str(current_user.profile.first_name+" "+current_user.profile.last_name)
@@ -99,7 +104,11 @@ def complete_payment(request):
         
         elif payment_status == 'FAILD':
             messages.warning(request, "Your payment Faild, please try again!")
-   
+            return HttpResponseRedirect(reverse('payment:checkout'))
+        
+        else:
+            messages.warning(request, "Your payment Faild, please try again!")
+            return HttpResponseRedirect(reverse('payment:checkout'))
     
     return render(request, 'payment/payment_success.html', context={})
 

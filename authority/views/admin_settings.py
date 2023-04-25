@@ -13,9 +13,11 @@ from authority.permissions import AdminPassesTestMixin
 
 # Models 
 from products.models import FoodCategories
+from authority.models import ShippingCharge
 
 # Forms
 from products.forms import FoodCategoriesForm
+from authority.forms import ShippingChargeForm
 
 class AddFoodCategoryView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
     model = FoodCategories
@@ -74,3 +76,45 @@ class DeleteFoodCategoryView(LoginRequiredMixin, AdminPassesTestMixin, DeleteVie
         self.object.is_active = False
         self.object.save()
         return redirect(self.success_url) 
+
+
+class AddShippingChargeView(LoginRequiredMixin, AdminPassesTestMixin, CreateView):
+    model = ShippingCharge
+    form_class = ShippingChargeForm
+    template_name = 'authority/shipping_charge.html'
+    success_url = reverse_lazy('authority:add_shipping_charge')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Add Shipping Charge" 
+        context["shippings"] = ShippingCharge.objects.all()
+        return context
+    
+    def form_valid(self, form):
+        messages.success(self.request, f"Shipping charge added successfully")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error("Something went worng try again!")
+        return super().form_invalid(form)
+
+class UpdateShippingChargeView(LoginRequiredMixin,AdminPassesTestMixin, UpdateView):
+    model = ShippingCharge
+    form_class = ShippingChargeForm
+    template_name = 'authority/shipping_charge.html'
+    success_url = reverse_lazy('authority:add_shipping_charge')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Update Shipping Charge" 
+        context["updated"] = True
+        return context
+    
+    def form_valid(self, form):
+        cagegory_name=form.cleaned_data.get('category_name')
+        messages.success(self.request, f"Shipping Charge updated successfully")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error("Something went worng try again!")
+        return super().form_invalid(form)
