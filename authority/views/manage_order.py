@@ -2,6 +2,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect
+from datetime import datetime
 
 # Permission Classes
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -20,6 +21,7 @@ from authority.models import ShippingCharge
 
 # Forms
 from authority.forms import TableBookingConfirmForm
+from products.forms import OrderConfirmForm
 
 
 
@@ -37,7 +39,7 @@ class PendingListView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
 
 class ConfirmedOrderListView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
     model = Order
-    queryset = Order.objects.filter(ordered=True, order_confirm=False).order_by('-id')
+    queryset = Order.objects.filter(ordered=True, order_confirm=True).order_by('-id')
     context_object_name = 'orders'
     template_name = 'authority/order_details.html'
 
@@ -45,6 +47,7 @@ class ConfirmedOrderListView(LoginRequiredMixin, AdminPassesTestMixin, ListView)
         print('Query Set: ',self.queryset)
         context = super().get_context_data(**kwargs)
         context["title"] = "Confirmed Order List" 
+        context["confirmed"] = True 
         return context
 
 
@@ -61,13 +64,13 @@ class OrderDetailsView(LoginRequiredMixin, AdminPassesTestMixin, DetailView):
         context["details"] = True
         context["shipping_charge"] = shipping_charge
         context["total"] = order_total.get_totals()+shipping_charge.shipping_charge
-        context["form"] = TableBookingConfirmForm(instance=self.object)
+        context["form"] = OrderConfirmForm
         return context
 
 class ConfirmOrderView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
     model = Order
-    form_class = TableBookingConfirmForm
-    template_name = 'authority/booking_request_list.html'
+    form_class = OrderConfirmForm
+    template_name = 'authority/order_details.html'
     success_url = reverse_lazy('authority:table_bookig_details', kwargs={'pk': 0})
 
     def get_context_data(self, **kwargs):
@@ -76,19 +79,12 @@ class ConfirmOrderView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
         return context
     
     def form_valid(self, form):
-        booking_message = form.cleaned_data.get('review_message')
         if form.is_valid():
             form_obj = form.save(commit=False)
-            form_obj.confirm_status = True
+            form_obj.confirmed_at = datetime.now()
             form_obj.save()
-            # Send Mail
-        subject = 'Table Booking Confirmation Mail'
-        message = booking_message
-        from_email = 'vsmpsm2023@gmail.com'
-        recipient_list = [ 'mshossen75@gmail.com',]
-        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
-        messages.success(self.request, "Appointment Accept Successfully")
-        self.success_url = reverse_lazy('authority:table_bookig_details', kwargs={'pk': self.object.id})
+        messages.success(self.request, "Order Accepted Successfully")
+        self.success_url = reverse_lazy('authority:order_details', kwargs={'pk': self.object.id})
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -96,15 +92,15 @@ class ConfirmOrderView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
         return super().form_invalid(form)
 
 
-class DelteBookTableView(LoginRequiredMixin, AdminPassesTestMixin, DeleteView):
+class DeleteOrderView(LoginRequiredMixin, AdminPassesTestMixin, DeleteView):
     model= Order
-    context_object_name ='booktable'
-    template_name = "authority/booking_request_list.html"
-    success_url = reverse_lazy('authority:table_bookig_request_list')
+    context_object_name ='order'
+    template_name = 'authority/order_details.html'
+    success_url = reverse_lazy('authority:confirmed_order_list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Delete Booking Table" 
+        context["title"] = "Delete order Table" 
         context["deleted"] = True
         return context
 

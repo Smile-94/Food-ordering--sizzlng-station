@@ -93,8 +93,8 @@ class Order(models.Model):
     order_id = models.CharField(max_length=250, blank=True, null=True)
     payment_status = models.BooleanField(default=False)
     order_confirm = models.BooleanField(default=False)
-    ordered_at = models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
-    confirmed_at =  models.DateTimeField(auto_now=False, auto_now_add=False, null=True)
+    ordered_at = models.DateTimeField(null=True)
+    confirmed_at =  models.DateTimeField(null=True)
 
     def save(self, *args, **kwargs):
         if not self.ordered_id:

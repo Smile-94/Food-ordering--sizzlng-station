@@ -1,5 +1,6 @@
 {% extends 'home_base/base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 
 {% block title %} {{title}} {% endblock title %}
@@ -72,18 +73,18 @@
                 <!--Contact form-->
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="contact-form-container sm-margin-top-112px">
-                        <form action="#" name="frm-contact" >
+                        <form action="{% url 'home:customer_message' %}" name="frm-contact" method="POST" > {% csrf_token %}
                             <p class="form-row">
-                                <input type="text" name="name" value="" placeholder="Your Name" class="txt-input">
+                                {{form.name | add_class:"txt-input"}}
                             </p>
                             <p class="form-row">
-                                <input type="email" name="email" value="" placeholder="Email Address" class="txt-input">
+                                {{form.email | add_class:"txt-input"}}
                             </p>
                             <p class="form-row">
-                                <input type="tel" name="phone" value="" placeholder="Phone Number" class="txt-input">
+                                {{form.phone | add_class:"txt-input"}}
                             </p>
                             <p class="form-row">
-                                <textarea name="mes" id="mes-1" cols="30" rows="9" placeholder="Leave Message"></textarea>
+                                {{form.message | add_class:"txt-input"}}
                             </p>
                             <p class="form-row">
                                 <button class="btn btn-submit" type="submit">send message</button>

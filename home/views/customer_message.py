@@ -1,4 +1,10 @@
 from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
+
+
+
 # Generic Classes
 from django.views.generic import CreateView
 
@@ -11,15 +17,10 @@ from home.forms import CustomerMessageForm
 class CustomerMessageView(CreateView):
     model = CustomerMessage
     form_class = CustomerMessageForm
-    http_method_names = ['get', 'post']
 
     def form_valid(self, form):
 
         if form.is_valid():
             form.save()
-            data={
-                'ok':'ok'
-            }
-            return JsonResponse({'message': 'success', 'data': {'error_message': 'There was a problem processing your request.'}})
-        else:
-            return JsonResponse({'message': 'error', 'data': form.errors})
+            return HttpResponseRedirect(reverse('home:contact'))
+        

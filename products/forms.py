@@ -3,6 +3,7 @@ from django import forms
 from products.models import FoodCategories
 from products.models import MenuFood
 from products.models import Foods
+from products.models import Order
 # Widgets
 from products.widgets import CustomPictureImageFieldWidget
 
@@ -23,3 +24,9 @@ class FoodsForm(forms.ModelForm):
     class Meta:
         model = Foods
         exclude = ('menu_id','new_price','is_active')
+
+class OrderConfirmForm(forms.ModelForm):
+
+    class Meta:
+        model = Order
+        fields = ('order_confirm',)

@@ -47,6 +47,11 @@ urlpatterns += [
 
 # Manage Order
 urlpatterns += [
+    path('pending-order-list/', manage_order.PendingListView.as_view(), name='pending_order_list'),
+    path('confirmed-order-list/', manage_order.ConfirmedOrderListView.as_view(), name='confirmed_order_list'),
     path('order-details/<int:pk>/',  manage_order.OrderDetailsView.as_view(), name='order_details'),
+    path('order-confirm/<int:pk>/',  manage_order.ConfirmOrderView.as_view(), name='order_confirm'),
+    path('order-delete/<int:pk>/',  manage_order.DeleteOrderView.as_view(), name='order_delete'),
+    
 ]
 

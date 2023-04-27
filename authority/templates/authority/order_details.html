@@ -39,9 +39,9 @@
             </div>
             
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">
-                    {% if not booktable.confirm_status %}
+                    {% if not order.order_confirm %}
                         <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#BookTable">
-                            Confirm Table
+                            Confirm Order
                         </button>
                     {% endif %}
                     {% if booktable.confirm_status %}
@@ -49,7 +49,7 @@
                             Edit
                         </button>
                     {% endif %}
-                    <a class="btn btn-primary" href="{% url 'authority:table_bookig_request_list' %}" role="button">Back</a>
+                    <a class="btn btn-primary" href="{% url 'authority:confirmed_order_list' %}" role="button">Back</a>
                 </div>
             
             <table class="table text-middle align-middle table-bordered table-striped table-hover mb-0">
@@ -95,19 +95,34 @@
                         <tr>
                             <td> Payment Status </td>
                             
-                            {% if payment_status %}
-                            <td> Paid </td>
+                            {% if order.payment_status %}
+                                <td> Paid </td>
                             {% else %}
-                            <td> Paid </td>
-                            {% endif %}
-                                
-                            
+                                <td> Not Paid </td>
+                            {% endif %} 
                         </tr> 
+                        {% if order.payment_status %}
                         <tr>
-                            <td> Review Message </td>
-                            <td> {{order.review_message}} </td>
+                            <td> Transaction ID </td>
+                            <td> {{order.payment_id}} </td>
+                             
                         </tr> 
-                   
+                        {% endif %}
+                        <tr>
+                            <td> Items </td>
+                            <td> 
+                                
+                                {% for items in order.orderitems.all %}
+                                    {{items.items}}
+                                    {% for item in items.Foods.all %}
+                                        {{item}}
+                                        
+                                    {% endfor %}
+                                        
+                                {% endfor %}
+                                    
+                            </td>
+                        </tr> 
                 </tbody>
             </table>
         </div>
@@ -117,21 +132,15 @@
                 <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm Table Booking</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm Order</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form method="POST" enctype="multipart/form-data" action="#"> {% csrf_token %}
+                        <form method="POST" enctype="multipart/form-data" action="{% url 'authority:order_confirm' order.id %}"> {% csrf_token %}
                             <div class="row mb-4">
                                 <div class="col">
-                                    <label for="exampleInputEmail1" class="form-label">Table No</label>
-                                    {{form.table_no |add_class:"form-control"}}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <label for="exampleInputEmail1" class="form-label">Review Message</label>
-                                    {{form.review_message |add_class:"form-control"}}
+                                    <label for="exampleInputEmail1" class="form-label">Are Your Sure your want to confirm order?</label>
+                                    {{form.order_confirm | add_class:"form-check-input"}}
                                 </div>
                             </div>
                     </div>
@@ -154,100 +163,172 @@
                     <button class="btn btn-danger" type='submit' id="deleteTask"><i class="fa-solid fa-trash px-2"></i>Delete</button>
                 </form>
                 
-                <a class="btn btn-primary" href="{% url 'authority:table_bookig_request_list' %}" role="button">Back</a>
+                <a class="btn btn-primary" href="{% url 'authority:confirmed_order_list' %}" role="button">Back</a>
             </div>
         
-        <table class="table text-middle align-middle table-bordered table-striped table-hover mb-0">
-            <thead class="bg-primary">
-                <tr class="text-dark">
-                    <th class="col-4" scope="col">Fields</th>
-                    <th class="col-8" scope="col">Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <tr>
-                        <td> Customer Name </td>
-                        <td> {{booktable.full_name}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Booking Date </td>
-                        <td> {{booktable.date}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Booking Time </td>
-                        <td> {{booktable.time}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Occasion </td>
-                        <td> {{booktable.occasion}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Number of Gust </td>
-                        <td> {{booktable.party_size}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Phone Number </td>
-                        <td> {{booktable.phone_number}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Email </td>
-                        <td> {{booktable.email}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Table No </td>
-                        <td> {{booktable.table_no}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Message </td>
-                        <td> {{booktable.messages}} </td>
-                    </tr> 
-                    <tr>
-                        <td> Review Message </td>
-                        <td> {{booktable.review_message}} </td>
-                    </tr> 
-               
-            </tbody>
-        </table>
-    </div>
-    {% else %}
-      <div class="table-responsive">
-        <div class="col-md-4">
-            <h6 class="mb-4">Table Booking Request List</h6>
-        </div>
-        <table class="table text-middle align-middle table-bordered table-striped table-hover mb-0">
-            <thead class="bg-primary">
-                <tr class="text-dark">
-                    <th scope="col">Name</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Party Size</th>
-                    <th scope="col">Phone</th>
-                    <th scope="col">Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                
-                {% for bookingrequest in bookingrequests %}
-                    <tr>
-                        <td> {{bookingrequest.full_name}} </td>
-                        <td>{{bookingrequest.date}}</td>
-                        <td>{{bookingrequest.time}}</td>
-                        <td> {{bookingrequest.party_size}} </td>
-                        <td> {{bookingrequest.phone_number}} </td>
-                        <td>
-                            <a class="btn btn-sm btn-primary" href="{% url 'authority:table_bookig_details' bookingrequest.id %}">Detail</a>
-                            
-                            {% if bookingrequest.confirm_status  %}
-                                <a class="btn btn-sm btn-danger" href="{% url 'authority:table_bookig_delete' bookingrequest.id %}"> Deletet</a>
-                            {% endif %}
-                                
-                        </td>
+            <table class="table text-middle align-middle table-bordered table-striped table-hover mb-0">
+                <thead class="bg-primary">
+                    <tr class="text-dark">
+                        <th class="col-4" scope="col">Fields</th>
+                        <th class="col-8" scope="col">Details</th>
                     </tr>
-                {% endfor %}    
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                        <tr>
+                            <td> Customer Name </td>
+                            <td> {{order.user.profile.first_name}} {{order.user.profile.last_name}}</td>
+                        </tr> 
+                        <tr>
+                            <td> Phone Number </td>
+                            <td> {{order.user.profile.phone_number}} </td>
+                        </tr> 
+                        <tr>
+                            <td> Order ID </td>
+                            <td> {{order.ordered_id}} </td>
+                        </tr> 
+                        <tr>
+                            <td> Customer Address </td>
+                            <td> {{order.user.profile.address_1}} </td>
+                        </tr> 
+                        <tr>
+                            <td> Shipping Address </td>
+                            <td> {{order.user.shipping_address.address}}, {{order.user.shipping_address.city}}, {{order.user.shipping_address.country}},{{order.user.shipping_address.zip_code}}   </td>
+                        </tr> 
+                        <tr>
+                            <td>Order Total</td>
+                            <td> {{order.get_totals}} </td>
+                        </tr> 
+                        <tr>
+                            <td> Shipping Charge</td>
+                            <td> {{shipping_charge.shipping_charge}} </td>
+                        </tr> 
+                        <tr>
+                            <td> Total </td>
+                            <td> {{total}} </td>
+                        </tr> 
+                        <tr>
+                            <td> Payment Status </td>
+                            
+                            {% if order.payment_status %}
+                                <td> Paid </td>
+                            {% else %}
+                                <td> Not Paid </td>
+                            {% endif %} 
+                        </tr> 
+                        {% if order.payment_status %}
+                        <tr>
+                            <td> Transaction ID </td>
+                            <td> {{order.payment_id}} </td>
+                             
+                        </tr> 
+                        {% endif %}
+                        <tr>
+                            <td> Items </td>
+                            <td> 
+                                
+                                {% for items in order.orderitems.all %}
+                                    {{items.items}}
+                                    {% for item in items.Foods.all %}
+                                        {{item}}
+                                        
+                                    {% endfor %}
+                                        
+                                {% endfor %}
+                                    
+                            </td>
+                        </tr> 
+                </tbody>
+            </table>
+    </div>
+    {% elif confirmed %}
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light text-center rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <h4 class="mb-0">Confirmed Order</h4>
+            </div>
+            <div class="table-responsive">
+                <table class="table text-start align-middle table-bordered table-hover mb-0">
+                    <thead>
+                        <tr class="text-white bg-dark">
+                            <th scope="col">Date</th>
+                            <th scope="col">Invoice</th>
+                            <th scope="col">Customer</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            {% for order in orders %}
+                            <tr>
+                                <td> {{order.ordered_at}} </td>
+                                <td> {{order.ordered_id}} </td>
+                                <td> {{order.user.profile.first_name}} {{order.user.profile.last_name}} </td>
+                                <td> {{order.get_totals}} </td>
+                                <td>
+                                    {% if order.payment_status %}
+                                        Paid
+                                    {% else %}
+                                        Cash On
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a class="btn btn-sm btn-primary" href="{% url 'authority:order_details' order.id %}">Detail</a>
+                                    <a class="btn btn-sm btn-danger" href="{% url 'authority:order_delete' order.id %}">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Recent Sales End -->
+
+    {% else %}
+      <!-- Recent Sales Start -->
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h4 class="mb-0">Pending Order</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-white bg-dark">
+                        <th scope="col">Date</th>
+                        <th scope="col">Invoice</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        {% for order in orders %}
+                        <tr>
+                            <td> {{order.ordered_at}} </td>
+                            <td> {{order.ordered_id}} </td>
+                            <td> {{order.user.profile.first_name}} {{order.user.profile.last_name}} </td>
+                            <td> {{order.get_totals}} </td>
+                            <td>
+                                {% if order.payment_status %}
+                                    Paid
+                                {% else %}
+                                    Cash On
+                                {% endif %}
+                            </td>
+                            <td><a class="btn btn-sm btn-primary" href="{% url 'authority:order_details' order.id %}">Detail</a></td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+<!-- Recent Sales End -->
 {% endif %}
 
 <script>

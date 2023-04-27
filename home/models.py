@@ -4,6 +4,7 @@ from django.db import models
 class CustomerMessage(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=254)
+    phone = models.CharField(max_length=50, null=True)
     message = models.TextField()
     send_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)

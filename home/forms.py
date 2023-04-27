@@ -8,6 +8,9 @@ class CustomerMessageForm(forms.ModelForm):
     name = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Enter Your Name'})
     )
+    phone = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Enter Your phone'})
+    )
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={'placeholder': 'Enter Your Email'})
     )
@@ -17,4 +20,4 @@ class CustomerMessageForm(forms.ModelForm):
 
     class Meta:
         model = CustomerMessage
-        fields = ('name','email','message')
+        fields = ('name','email','message','phone')
