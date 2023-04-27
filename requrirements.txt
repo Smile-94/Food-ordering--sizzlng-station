@@ -7,4 +7,5 @@ django-tinymce==3.5.0
 django-multiupload==0.6.1
 sslcommerz-python==0.0.7
 requests==2.22.0
+django-xhtml2pdf==0.0.4
 
