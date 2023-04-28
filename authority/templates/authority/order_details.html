@@ -44,11 +44,7 @@
                             Confirm Order
                         </button>
                     {% endif %}
-                    {% if booktable.confirm_status %}
-                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#BookTable">
-                            Edit
-                        </button>
-                    {% endif %}
+                    <a class="btn btn-primary me-2" href="{% url 'report:order_pdf' order.id %}" target="_blank" role="button">Print</a>
                     <a class="btn btn-primary" href="{% url 'authority:confirmed_order_list' %}" role="button">Back</a>
                 </div>
             
@@ -155,7 +151,7 @@
     {% elif deleted %}
     <div class="table-responsive">
         <div class="col-md-4">
-            <h6 class="mb-4">Delete Booked Table</h6>
+            <h6 class="mb-4">Delete Order Table</h6>
         </div>
         
             <div class="d-grid gap-2 d-md-flex justify-content-md-end mb-4">

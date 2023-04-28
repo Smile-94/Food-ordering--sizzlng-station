@@ -2,6 +2,10 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.shortcuts import redirect
+from django.urls import reverse
+from django.http import HttpResponseRedirect
+
+
 
 # Permission Classes
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -71,17 +75,29 @@ class ConfirmTableBookingView(LoginRequiredMixin, AdminPassesTestMixin, UpdateVi
     
     def form_valid(self, form):
         booking_message = form.cleaned_data.get('review_message')
+        table_no = form.cleaned_data.get('table_no')
+        if BookTable.objects.filter(date = self.object.date, table_no=table_no).exists():
+            messages.success(self.request, "This table already booked on this day")
+            url = reverse('authority:table_bookig_details', kwargs={'pk': self.object.id})
+            return HttpResponseRedirect(url)
+            # return HttpResponseRedirect(reversed('authority:table_bookig_details', kwargs={'pk': self.object.id} ))
+            # self.success_url = reverse_lazy('authority:table_bookig_details', kwargs={'pk': self.object.id})
+
         if form.is_valid():
             form_obj = form.save(commit=False)
             form_obj.confirm_status = True
             form_obj.save()
             # Send Mail
-        subject = 'Table Booking Confirmation Mail'
-        message = booking_message
-        from_email = 'vsmpsm2023@gmail.com'
-        recipient_list = [ 'mshossen75@gmail.com',]
-        send_mail(subject, message, from_email, recipient_list, fail_silently=False)
-        messages.success(self.request, "Appointment Accept Successfully")
+        try:
+            subject = 'Table Booking Confirmation Mail'
+            message = booking_message
+            from_email = 'vsmpsm2023@gmail.com'
+            recipient_list = [ 'mshossen75@gmail.com',]
+            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+        except Exception as e:
+            print(e)
+
+        messages.success(self.request, "Table booking Accepted Successfully")
         self.success_url = reverse_lazy('authority:table_bookig_details', kwargs={'pk': self.object.id})
         return super().form_valid(form)
 

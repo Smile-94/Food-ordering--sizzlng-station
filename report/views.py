@@ -8,16 +8,21 @@ from django.conf import settings
 
 # Models
 from products.models import Order
+from authority.models import ShippingCharge
 
 
-class EmployeePdfView(PdfMixin, DetailView):
+class OrderPdfView(PdfMixin, DetailView):
     model = Order
-    context_object_name = 'Order'
+    context_object_name = 'order'
     template_name = "report/order_pdf.html"
 
     def get_context_data(self, **kwargs):
+        shipping_charge = ShippingCharge.objects.latest('id')
+        order_total = Order.objects.filter(id=self.kwargs['pk'])[0]
         context = super().get_context_data(**kwargs)
         context['static_url'] = self.request.build_absolute_uri(settings.STATIC_URL)
+        context['shipping_charge'] = shipping_charge
+        context["total"] = order_total.get_totals()+shipping_charge.shipping_charge
         return context
     
     
