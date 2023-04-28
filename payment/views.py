@@ -127,7 +127,20 @@ def purchase(request, val_id, tran_id):
         item.purchased = True
         item.save()
 
-    return HttpResponseRedirect(reverse('home:index'))
+    return HttpResponseRedirect(reverse('home:my_order'))
+
+@login_required
+def cashon_purchase(request):
+    order_qs = Order.objects.filter(user=request.user, ordered=False)[0]
+    order_qs.ordered = True
+    order_qs.save()
+
+    cart_items = Cart.objects.filter(user=request.user, purchased=False)
+    for item in cart_items:
+        item.purchased = True
+        item.save()
+
+    return HttpResponseRedirect(reverse('home:my_order'))
 
 
 
