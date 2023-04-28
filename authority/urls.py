@@ -43,6 +43,8 @@ urlpatterns += [
     path('delete-food-category/<int:pk>/', admin_settings.DeleteFoodCategoryView.as_view(), name='delete_food_category'),
     path('add-shipping-charge/', admin_settings.AddShippingChargeView.as_view(), name='add_shipping_charge'),
     path('update-shipping-charge/<int:pk>/', admin_settings.UpdateShippingChargeView.as_view(), name='update_shipping_charge'),
+    path('Customer-message/', admin_settings.CustomerMessageView.as_view(), name='customer_message'),
+    path('Customer-message-detail/<int:pk>/', admin_settings.CustomerMessageDetailView.as_view(), name='customer_message_detail'),
 ]
 
 # Manage Order

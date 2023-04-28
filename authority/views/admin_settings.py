@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
 from django.views.generic import DeleteView
+from django.views.generic import ListView
+from django.views.generic import DetailView
 
 # Permission Classes
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -14,6 +16,7 @@ from authority.permissions import AdminPassesTestMixin
 # Models 
 from products.models import FoodCategories
 from authority.models import ShippingCharge
+from home.models import CustomerMessage
 
 # Forms
 from products.forms import FoodCategoriesForm
@@ -118,3 +121,27 @@ class UpdateShippingChargeView(LoginRequiredMixin,AdminPassesTestMixin, UpdateVi
     def form_invalid(self, form):
         messages.error("Something went worng try again!")
         return super().form_invalid(form)
+
+class CustomerMessageView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
+    model = CustomerMessage
+    context_object_name = 'messages'
+    queryset = CustomerMessage.objects.filter(is_active=True)
+    template_name = 'authority/customer_message.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Customer Message"
+        return context
+    
+
+class CustomerMessageDetailView(LoginRequiredMixin, AdminPassesTestMixin, DetailView):
+    model = CustomerMessage
+    context_object_name = 'message'
+    queryset = CustomerMessage.objects.filter(is_active=True)
+    template_name = 'authority/customer_message_details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Customer Message Details"
+        return context
+    
