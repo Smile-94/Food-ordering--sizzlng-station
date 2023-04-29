@@ -95,6 +95,7 @@ class Order(models.Model):
     order_confirm = models.BooleanField(default=False)
     ordered_at = models.DateTimeField(null=True)
     confirmed_at =  models.DateTimeField(null=True)
+    delevery_status = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.ordered_id:

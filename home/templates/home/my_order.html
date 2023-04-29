@@ -35,6 +35,8 @@
                                 <th scope="col">Ordered Time</th>
                                 <th scope="col">Confirmed Time</th>
                                 <th scope="col">Order Status</th>
+                                <th scope="col">Delevery Status</th>
+                                <th scope="col">Action</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -68,6 +70,16 @@
                                         {% else %}
                                             Processing
                                         {% endif %}
+                                    </td>
+                                    <td> 
+                                        {% if order.delevery_status %}
+                                            delivered
+                                        {% else %}
+                                            Pending
+                                        {% endif %}
+                                    </td>
+                                    <td> 
+                                        <a class="btn btn-primary me-2" href="{% url 'report:order_pdf' order.id %}" target="_blank" role="button">Download</a>
                                     </td>
                                 </tr>  
                                 {% endfor %}

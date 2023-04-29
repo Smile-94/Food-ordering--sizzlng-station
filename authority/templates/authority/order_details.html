@@ -97,6 +97,15 @@
                                 <td> Not Paid </td>
                             {% endif %} 
                         </tr> 
+                        <tr>
+                            <td> Delevery Status </td>
+                            
+                            {% if order.delevery_status %}
+                                <td> delivered </td>
+                            {% else %}
+                                <td> Pending </td>
+                            {% endif %} 
+                        </tr> 
                         {% if order.payment_status %}
                         <tr>
                             <td> Transaction ID </td>
@@ -234,7 +243,7 @@
                             </td>
                         </tr> 
                 </tbody>
-            </table>
+            </table>    
     </div>
     {% elif confirmed %}
     <div class="container-fluid pt-4 px-4">
@@ -251,6 +260,7 @@
                             <th scope="col">Customer</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Delevery</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -270,7 +280,44 @@
                                     {% endif %}
                                 </td>
                                 <td>
+                                    {% if order.delevery_status %}
+                                        delivered
+                                    {% else %}
+                                        Pending
+                                    {% endif %}
+                                </td>
+                                <td>
                                     <a class="btn btn-sm btn-primary" href="{% url 'authority:order_details' order.id %}">Detail</a>
+                                    {% if not order.delevery_status %}
+                                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#BookTable">
+                                            Delevery
+                                        </button>
+                                                <!-- Modal -->
+                                                <div class="modal fade" id="BookTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Confirm Delevery</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form method="POST" enctype="multipart/form-data" action="{% url 'authority:confirm_delevery' order.id %}"> {% csrf_token %}
+                                                                <div class="row mb-4">
+                                                                    <div class="col">
+                                                                        <label for="exampleInputEmail1" class="form-label">Are Your Sure your want to confirm delevery?</label>
+                                                                        {{form.delevery_status | add_class:"form-check-input"}}
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button type="Submit" class="btn btn-primary">Save</button>
+                                                        </div>
+                                                    </form>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                    {% endif %}
                                     <a class="btn btn-sm btn-danger" href="{% url 'authority:order_delete' order.id %}">Delete</a>
                                 </td>
                             </tr>

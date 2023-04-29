@@ -34,7 +34,8 @@ urlpatterns += [
 
 # Manage Product
 urlpatterns += [
-    path('set-menu-details/<int:pk>/', manage_product.SetMenuDetailsView.as_view(), name='set-menu-details')
+    path('set-menu-details/<int:pk>/', manage_product.SetMenuDetailsView.as_view(), name='set-menu-details'),
+    path('search/', manage_product.FoodsSearchView.as_view(), name='search')
 ]
 
 # manage order

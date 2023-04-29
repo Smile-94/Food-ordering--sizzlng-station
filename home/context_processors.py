@@ -2,6 +2,9 @@ from products.models import FoodCategories
 from products.models import Cart
 from django.db.models import F, Sum
 
+from products.filters import FoodsFilter
+from products.models import Foods
+
 def my_context_processor(request):
     data_dic = {}
     # your code here to get the data you want to pass to the base template
@@ -16,7 +19,8 @@ def my_context_processor(request):
         data_dic.update({
             'chart_items':chart_items,
             'chart_item_quetity':chart_item_quetity,
-            'cart_price':total_price
+            'cart_price':total_price,
+            'foods_filter': FoodsFilter(request.GET or None, queryset=Foods.objects.all())
         })
     except Exception as e:
         print(e)

@@ -265,8 +265,12 @@
                 <div class="row">
                     <div class="col-lg-12 col-md-8 padding-top-2px">
                         <div class="header-search-bar layout-01">
-                            <form action="#" class="form-search" name="desktop-seacrh" method="get"> {% csrf_token %}
+                            <form action="{% url 'home:search' %}" class="form-search" name="desktop_seacrh" method="get"> {% csrf_token %}
                                 <input type="text" name="s" class="input-text" value="" placeholder="Search here...">
+                                {% comment %} {{ foods_filter.form.as_p }}
+                                {{foods_filter}}
+                                 {% endcomment %}
+                                {% comment %} {{foods_filter.form.menu_name | add_class:"input-text"}}
                                 <select name="category">
                                     <option value="-1" selected>All Categories</option>
                                     {% if food_categories %} 
@@ -275,7 +279,7 @@
                                             <option value="-1" selected> {{category.category_name}} </option>
                                         {% endfor %}
                                     {% endif %}
-                                </select>
+                                </select> {% endcomment %}
                                 <button type="submit" class="btn-submit"><i class="biolife-icon icon-search"></i></button>
                             </form>
                         </div>

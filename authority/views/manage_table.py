@@ -11,6 +11,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from authority.permissions import AdminPassesTestMixin
 
+from authority.filters import TableFilter
+
 # Generic Classes
 from django.views.generic import ListView
 from django.views.generic import DetailView
@@ -123,7 +125,17 @@ class DelteBookTableView(LoginRequiredMixin, AdminPassesTestMixin, DeleteView):
         self.object.save()
         return redirect(self.success_url)
 
+class TableReportView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
+    model = BookTable
+    queryset = BookTable.objects.filter(confirm_status=True, is_active=True).order_by('-id')
+    filterset_class = TableFilter
+    template_name = 'authority/table_report.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Confirmed Table List"
+        context["bookingrequests"] = self.filterset_class(self.request.GET, queryset=self.queryset)
+        return context
     
 
 

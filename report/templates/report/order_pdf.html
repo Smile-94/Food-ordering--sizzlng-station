@@ -135,6 +135,15 @@
                     <td> Not Paid </td>
                 {% endif %} 
             </tr> 
+            <tr>
+                <td> Payment Status </td>
+                
+                {% if order.delevery_status %}
+                    <td> delivered </td>
+                {% else %}
+                    <td> Pending </td>
+                {% endif %} 
+            </tr> 
             {% if order.payment_status %}
             <tr>
                 <td> Transaction ID </td>

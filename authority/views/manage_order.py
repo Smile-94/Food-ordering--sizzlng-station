@@ -21,7 +21,10 @@ from authority.models import ShippingCharge
 
 # Forms
 from authority.forms import TableBookingConfirmForm
+from authority.forms import ConfirmDeleveryForm
 from products.forms import OrderConfirmForm
+
+from products.filters import OrderFilter
 
 
 
@@ -47,6 +50,7 @@ class ConfirmedOrderListView(LoginRequiredMixin, AdminPassesTestMixin, ListView)
         print('Query Set: ',self.queryset)
         context = super().get_context_data(**kwargs)
         context["title"] = "Confirmed Order List" 
+        context["form"] = ConfirmDeleveryForm
         context["confirmed"] = True 
         return context
 
@@ -64,7 +68,6 @@ class OrderDetailsView(LoginRequiredMixin, AdminPassesTestMixin, DetailView):
         context["details"] = True
         context["shipping_charge"] = shipping_charge
         context["total"] = order_total.get_totals()+shipping_charge.shipping_charge
-        context["form"] = OrderConfirmForm
         return context
 
 class ConfirmOrderView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
@@ -86,6 +89,23 @@ class ConfirmOrderView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
         messages.success(self.request, "Order Accepted Successfully")
         self.success_url = reverse_lazy('authority:order_details', kwargs={'pk': self.object.id})
         return super().form_valid(form)
+    
+class ConfirmDeleveryView(LoginRequiredMixin, AdminPassesTestMixin, UpdateView):
+    model = Order
+    form_class = ConfirmDeleveryForm
+    template_name = 'authority/order_details.html'
+    success_url = reverse_lazy('authority:confirmed_order_list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Confirm Table Booking Request"
+        return context
+    
+    def form_valid(self, form):
+        if form.is_valid():
+            form_obj = form.save(commit=False)
+        messages.success(self.request, "Food Delevery Successfully")
+        return super().form_valid(form)
 
     def form_invalid(self, form):
         messages.error(self.request, "Something wrong try again!")
@@ -102,5 +122,17 @@ class DeleteOrderView(LoginRequiredMixin, AdminPassesTestMixin, DeleteView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Delete order Table" 
         context["deleted"] = True
+        return context
+
+class ConfirmedOrderListReportView(LoginRequiredMixin, AdminPassesTestMixin, ListView):
+    model = Order
+    queryset = Order.objects.filter(ordered=True, order_confirm=True).order_by('-id')
+    filterset_class = OrderFilter
+    template_name = 'authority/order_report.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Confirmed Order List"
+        context["orders"] = self.filterset_class(self.request.GET, queryset=self.queryset)
         return context
 

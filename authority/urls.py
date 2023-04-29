@@ -33,6 +33,7 @@ urlpatterns += [
     path('table-booking-details/<int:pk>/', manage_table.TableBookingDetailsView.as_view(), name='table_bookig_details'),
     path('table-booking-confirm/<int:pk>/', manage_table.ConfirmTableBookingView.as_view(), name='table_bookig_confirm'),
     path('table-booking-delete/<int:pk>/', manage_table.DelteBookTableView.as_view(), name='table_bookig_delete'),
+    path('table-report/', manage_table.TableReportView.as_view(), name='table_report'),
 ]
 
 
@@ -54,6 +55,8 @@ urlpatterns += [
     path('order-details/<int:pk>/',  manage_order.OrderDetailsView.as_view(), name='order_details'),
     path('order-confirm/<int:pk>/',  manage_order.ConfirmOrderView.as_view(), name='order_confirm'),
     path('order-delete/<int:pk>/',  manage_order.DeleteOrderView.as_view(), name='order_delete'),
+    path('order-report/',  manage_order.ConfirmedOrderListReportView.as_view(), name='order_report'),
+    path('confirm_delevery/<int:pk>/',  manage_order.ConfirmDeleveryView.as_view(), name='confirm_delevery'),
     
 ]
 

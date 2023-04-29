@@ -85,12 +85,12 @@
                             </div>
                             <div class="subtotal-line">
                                 <b class="stt-name">Shipping</b>
-                                <span class="stt-price">£0.00</span>
+                                <span class="stt-price">Tk {{shipping_charge.shipping_charge}} </span>
                             </div>
-                            <div class="tax-fee">
+                            {% comment %} <div class="tax-fee">
                                 <p class="title">Est. Taxes & Fees</p>
                                 <p class="desc">Based on 56789</p>
-                            </div>
+                            </div> {% endcomment %}
                             <div class="btn-checkout">
                                 <a href="{% url 'payment:checkout' %}" class="btn checkout">Check out</a>
                             </div>

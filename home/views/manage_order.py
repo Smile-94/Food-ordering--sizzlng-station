@@ -55,6 +55,7 @@ class ChartProductListView(TemplateView):
         context["chart_items"] = Cart.objects.filter(user =self.request.user, purchased = False)
         context["total_items"] = Cart.objects.filter(user =self.request.user, purchased = False).count()
         context["total_price"] =Cart.objects.filter(user=self.request.user, purchased=False).annotate(item_total=F('quentity') * F('items__new_price')).aggregate(total_price=Sum('item_total'))['total_price'] or 0
+        context["shipping_charge"] =ShippingCharge.objects.latest('id')
         return context
 
 @login_required
